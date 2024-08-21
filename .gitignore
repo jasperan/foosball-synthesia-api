@@ -31,3 +31,6 @@ Temporary Items
 .crt
 .csr
 .pem
+
+# ignore config file containing synthesia api
+config.yaml
