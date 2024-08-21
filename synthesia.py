@@ -3,7 +3,7 @@ import yaml
 from verify_download import verify_download
 
 # endpoint URL
-url = "https://api.synthesia.io/v2/videos"
+url = "https://api.synthesia.io/v2/videos" # endpoint
 
 
 # data payload
@@ -27,7 +27,7 @@ payload = {
                     "longBackgroundContentMatchMode": "trim"
                 } },
             "avatar": "anna_costume1_cameraA",
-            "scriptText": "What is up ladies and gentleman from Oracle? This is a generation example using the test version of the API",
+            "scriptText": "How is it going? This is a test generation using Synthesia. I am not real",
             "background": "green_screen"
         }
     ]
