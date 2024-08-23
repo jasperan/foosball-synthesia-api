@@ -2,11 +2,13 @@ import requests
 import yaml
 from verify_download import verify_download
 
+url = "https://api.synthesia.io/v2/videos"
+
+
 avatars = {
     'brendan': 'f05b2c94-6c0c-4d71-82e5-90fd51c7eea3'
 }
 
-url = "https://api.synthesia.io/v2/videos"
 
 # Define the endpoint URL
 
@@ -43,7 +45,7 @@ payload = {
                     "longBackgroundContentMatchMode": "trim"
                 } },
             "avatar": avatars['brendan'], # anna_costume1_cameraA
-            "scriptText": "What is up ladies and gentleman from Oracle? This is a generation example using the test version of the API. Civility vicinity graceful is it at. Improve up at to on mention perhaps raising. Way building not get formerly her peculiar. Up uncommonly prosperous sentiments simplicity acceptance to so. Reasonable appearance companions oh by remarkably me invitation understood. Pursuit elderly ask perhaps all. Wise busy past both park when an ye no. Nay likely her length sooner thrown sex lively income. The expense windows adapted sir. Wrong widen drawn ample eat off doors money. Offending belonging promotion provision an be oh consulted ourselves it. Blessing welcomed ladyship she met humoured sir breeding her. Six curiosity day assurance bed necessary. ",
+            "scriptText": "What is up ladies and gentleman from Oracle? This is a generation example using the test version of the API. Civility vicinity graceful is it at.",
             "background": "green_screen"
         }
     ]
@@ -105,4 +107,5 @@ print('{} - {}'.format(
     status
 ))
 
-verify_download(video_id)
+if video_id:
+    verify_download(video_id)

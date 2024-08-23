@@ -3,7 +3,7 @@ import time
 import yaml
 
 def verify_download(video_id):
-    url = f"https://api.synthesia.io/v2/videos/{video_id}" # endpoint
+    url = f"https://api.synthesia.io/v2/videos/{video_id}"
     headers = {
         "Authorization": yaml.safe_load(open('config.yaml'))['authorization'],
         "accept": "application/json"
@@ -36,4 +36,4 @@ def verify_download(video_id):
 
 # Usage example:
 # download_url = verify_download(video_id)
-download_url = verify_download("cbda58b3-6ad2-4878-8bde-dbe61ac2d257")
+download_url = verify_download("e3ca5dda-9527-4263-9f0b-e4612879182e")
