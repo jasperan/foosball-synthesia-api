@@ -3,7 +3,8 @@ import yaml
 from verify_download import verify_download
 
 avatars = {
-    'brendan': 'f05b2c94-6c0c-4d71-82e5-90fd51c7eea3'
+    'brendan': 'f05b2c94-6c0c-4d71-82e5-90fd51c7eea3',
+    'brendan_v2': '209701e1-77a3-40d2-a383-1bd115f0ab0e',
 }
 
 url = "https://api.synthesia.io/v2/videos"
@@ -42,7 +43,7 @@ payload = {
                     "shortBackgroundContentMatchMode": "freeze",
                     "longBackgroundContentMatchMode": "trim"
                 } },
-            "avatar": avatars['brendan'], # anna_costume1_cameraA
+            "avatar": avatars['brendan_v2'], # anna_costume1_cameraA
             "scriptText": "What is up ladies and gentleman from Oracle? This is a generation example using the test version of the API. Civility vicinity graceful is it at. Improve up at to on mention perhaps raising. Way building not get formerly her peculiar. Up uncommonly prosperous sentiments simplicity acceptance to so. Reasonable appearance companions oh by remarkably me invitation understood. Pursuit elderly ask perhaps all. Wise busy past both park when an ye no. Nay likely her length sooner thrown sex lively income. The expense windows adapted sir. Wrong widen drawn ample eat off doors money. Offending belonging promotion provision an be oh consulted ourselves it. Blessing welcomed ladyship she met humoured sir breeding her. Six curiosity day assurance bed necessary. ",
             "background": "green_screen"
         }
