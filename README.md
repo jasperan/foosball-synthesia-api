@@ -6,6 +6,8 @@ First, put your API key in a new file called `config.yaml`, with these contents:
 
 ```bash
 authorization: YOUR_API_KEY
+config_profile: OCI_CLI_PROFILE_NAME
+compartment_id: COMPARTMENT_ID_WHERE_GENAI_SERVICE_IS_ACTIVE
 ```
 
 Then, simply run:
