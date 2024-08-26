@@ -6,9 +6,8 @@ with open('config.yaml', 'r') as file:
     config_data = yaml.safe_load(file)
 
 compartment_id = config_data['compartment_id']
-
-
 CONFIG_PROFILE = config_data['config_profile']
+
 config = oci.config.from_file('~/.oci/config', CONFIG_PROFILE)
 
 # Service endpoint
