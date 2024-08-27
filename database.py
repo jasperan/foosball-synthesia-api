@@ -92,8 +92,10 @@ class OracleDBInterface:
         """
         return self.execute_query(query)
 
-# Example usage
-if __name__ == "__main__":
+
+
+
+def main():
     
     db = OracleDBInterface(db_username, db_password, db_dsn)
     db.connect()
@@ -139,3 +141,8 @@ if __name__ == "__main__":
         print("Error sending data to OCI GenAI service:", e)
 
     db.disconnect()
+
+
+# Example usage
+if __name__ == "__main__":
+    main()
