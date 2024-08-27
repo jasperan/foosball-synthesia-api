@@ -94,6 +94,7 @@ class OracleDBInterface:
 
 # Example usage
 if __name__ == "__main__":
+    
     db = OracleDBInterface(db_username, db_password, db_dsn)
     db.connect()
 
