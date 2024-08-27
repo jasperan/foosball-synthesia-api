@@ -39,7 +39,7 @@ def generate():
     construct_query = """
     You are a professional football commentator. You have been invited to host a foosball tournament with round-robin matches of 3 minutes in length. There are two teams: 
 
-    I need you to give me your best narration as if it were a live football match.
+    I need you to give me your best narration as if it were a live football match. Use the past tense and up to 80 words maximum.
     
     Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
     
