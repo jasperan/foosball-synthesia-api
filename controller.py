@@ -10,6 +10,7 @@ def game_end():
         database.main()
         return jsonify({"message": "Game end processed successfully"}), 200
     except Exception as e:
+        print(e)
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
