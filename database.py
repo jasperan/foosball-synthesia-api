@@ -52,43 +52,68 @@ class OracleDBInterface:
 
     def get_goals_per_team(self):
         query = """
-        SELECT PLAYERDISPLAYNAME, count(PLAYER) "Number of Goals"
-        FROM EXDEMO.CURRENT_GAME_VEGAS_GOALS_V
-        GROUP BY PLAYERDISPLAYNAME
+        SELECT
+            TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
+            PLAYERDISPLAYNAME,
+            count(PLAYER) "Total Goals Per Team"
+        FROM EXDEMO.PROGRESSIVE_GAME_GOALS_VIEW
+        where GAMEEVENTTYPEID = 63
+        and TRIM(GAMEDATATIMESTAMP) = (select max(trim(GAMEDATATIMESTAMP)) from  EXDEMO.CURRENT_GAME_VEGAS_GOALS_V)
+        group by PLAYERDISPLAYNAME, TRIM(GAMEDATATIMESTAMP)
+        order by PLAYERDISPLAYNAME;
         """
         return self.execute_query(query)
 
     def get_possession_percentage(self):
         query = """
-        SELECT GAMEINSTANCEID,
-               (PLAYER1_POSSESSION_PCT + PLAYER2_POSSESSION_PCT)*100 "Total Possession Pct",
-               PLAYER1_POSSESSION_PCT * 100 "Player1 Possession Pct",
-               PLAYER2_POSSESSION_PCT * 100 "Player2 Possession Pct"
-        FROM EXDEMO.OAC_CURRENT_GAME_STATS
+        SELECT
+            TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
+            ROUND(AVG(PLAYER1_POSSESSION_PCT),2) AS PLAYER1_POSSESSION_PCT,
+            ROUND(AVG(PLAYER2_POSSESSION_PCT),2) AS PLAYER2_POSSESSION_PCT
+        FROM
+            EXDEMO.OAC_PROGRESSIVE_GAME_STATS
+        GROUP BY TRIM(GAMEDATATIMESTAMP)
+        ORDER BY TRIM(GAMEDATATIMESTAMP);
         """
         return self.execute_query(query)
 
     def get_possession_total(self):
         query = """
-        SELECT GAMEINSTANCEID,
-               PLAYER1_MATCH_DURATION_SECONDS + PLAYER2_MATCH_DURATION_SECONDS "Possession total (in seconds)"
-        FROM EXDEMO.OAC_CURRENT_GAME_STATS
+        SELECT
+            TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
+            sum(PLAYER1_MATCH_DURATION_SECONDS) "Total Cummulate Possession by Player1 (in seconds)",
+            ROUND(AVG(PLAYER1_MATCH_DURATION_SECONDS),2) "Average Possession by Player1 (in seconds)", 
+            sum(PLAYER2_MATCH_DURATION_SECONDS) "Total Cummulate Possession by Player2 (in seconds)",
+            ROUND(AVG(PLAYER2_MATCH_DURATION_SECONDS),2) "Average Possession by Player2 (in seconds)"
+        FROM
+            EXDEMO.OAC_PROGRESSIVE_GAME_STATS
+        GROUP BY TRIM(GAMEDATATIMESTAMP)
+        ORDER BY TRIM(GAMEDATATIMESTAMP);
         """
         return self.execute_query(query)
 
     def get_match_duration(self):
         query = """
-        SELECT GAMEINSTANCEID,
-               match_duration_seconds "Match duration (in seconds)"
-        FROM EXDEMO.OAC_CURRENT_GAME_STATS
+        SELECT
+            TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
+            sum(match_duration_seconds) "Total Cummulative Match Time (in seconds)"
+        FROM
+            EXDEMO.OAC_PROGRESSIVE_GAME_STATS
+        GROUP BY TRIM(GAMEDATATIMESTAMP)
+        ORDER BY TRIM(GAMEDATATIMESTAMP);
         """
         return self.execute_query(query)
 
-    def get_number_of_players(self):
+    def get_number_of_players_and_games_played(self):
         query = """
-        SELECT GAMEINSTANCEID,
-               num_of_players
-        FROM EXDEMO.OAC_CURRENT_GAME_STATS
+        SELECT
+            TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
+            sum(num_of_players) "Total Number of Players",
+            sum(num_of_players)/2 "Total Number of Games" 
+        FROM
+            EXDEMO.OAC_PROGRESSIVE_GAME_STATS
+        GROUP BY TRIM(GAMEDATATIMESTAMP)
+        ORDER BY TRIM(GAMEDATATIMESTAMP);
         """
         return self.execute_query(query)
 
@@ -115,10 +140,10 @@ def main():
     match_duration = db.get_match_duration()
     print("Match duration:", match_duration)
 
-    # Get number of players
-    number_of_players = db.get_number_of_players()
+    # Get number of players and games played
+    number_of_players_and_games_played = db.get_number_of_players_and_games_played()
 
-    #print(goals_per_team, possession_percentage, possession_total, match_duration, number_of_players)
+    #print(goals_per_team, possession_percentage, possession_total, match_duration, number_of_players_and_games_played)
 
 
     # Prepare the data to be sent
@@ -127,7 +152,7 @@ def main():
         "possession_percentage": str(possession_percentage),
         "possession_total": str(possession_total),
         "match_duration": str(match_duration),
-        "number_of_players": str(number_of_players)
+        "number_of_players_and_games_played": str(number_of_players_and_games_played)
     }
 
     #print(data)
