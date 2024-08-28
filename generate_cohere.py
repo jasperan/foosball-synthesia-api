@@ -92,7 +92,7 @@ def generate():
 
 
 @app.route('/generate_progressive', methods=['GET'])
-def generate():
+def generate_progressive():
     chat_detail = oci.generative_ai_inference.models.ChatDetails()
     chat_request = oci.generative_ai_inference.models.CohereChatRequest()
 
