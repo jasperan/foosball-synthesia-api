@@ -10,8 +10,9 @@ def game_end():
         data = request.json
 
         print(data)
-        
-        game_instance = data.get('game_instance')
+
+        game_instance = data.get('gameinstanceid')
+        game_timestamp = data.get('gamedatatimestamp')
         
         if game_instance is None or not isinstance(game_instance, int):
             return jsonify({"error": "Invalid or missing game_instance"}), 400
