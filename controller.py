@@ -16,9 +16,6 @@ def game_end():
         # Call the main function from database.py
         database.main(game_instance)
         
-       
-        # Call the main function from database.py
-        database.main(game_instance)
         return jsonify({"message": "Game end processed successfully"}), 200
     except Exception as e:
         print(e)

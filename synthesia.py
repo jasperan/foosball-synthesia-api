@@ -84,7 +84,7 @@ def handle_synthesia_request():
 
         # Prepare the data for the POST request
         payload = {
-            "gameInstanceId": data['game_instance_id'],
+            "gameInstanceId": game_instance_id,
             "videoUrl": download_url
         }
 
