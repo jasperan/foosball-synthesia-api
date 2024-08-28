@@ -8,6 +8,9 @@ def game_end():
     try:
         # Extract game_instance from the request data
         data = request.json
+
+        print(data)
+        
         game_instance = data.get('game_instance')
         
         if game_instance is None or not isinstance(game_instance, int):
