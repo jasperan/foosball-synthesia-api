@@ -56,7 +56,8 @@ def handle_synthesia_request():
     data = request.json
     if data and 'text' in data:
         payload['input'][0]['scriptText'] = data['text'] # update script text
-        
+        game_instance_id = data['game_instance_id']    
+    
     # Send the POST request
     response = requests.post(url, json=payload, headers=headers)
 
@@ -83,11 +84,11 @@ def handle_synthesia_request():
 
         # Prepare the data for the POST request
         payload = {
-                "gameInstanceId": data['game_instance'],
-                "videoUrl": download_url
-            }
+            "gameInstanceId": data['game_instance_id'],
+            "videoUrl": download_url
+        }
 
-            # Make the POST request
+        # Make the POST request
         try:
             response = requests.post(
                 "https://pqyhsfxkaun3blanrjmz5tqtri.apigateway.us-ashburn-1.oci.customer-oci.com/addons/v1/gamevidurl",

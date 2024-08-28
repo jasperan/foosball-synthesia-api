@@ -162,7 +162,7 @@ class OracleDBInterface:
 
 
 
-def main():
+def main(game_instance_id):
     
     db = OracleDBInterface(db_username, db_password, db_dsn)
     db.connect()
@@ -196,7 +196,8 @@ def main():
         "possession_percentage": str(possession_percentage),
         "possession_total": str(possession_total),
         "match_duration": str(match_duration),
-        "number_of_players": str(number_of_players)
+        "number_of_players": str(number_of_players),
+        "game_instance_id": game_instance_id,
     }
 
 
