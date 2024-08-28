@@ -52,6 +52,48 @@ class OracleDBInterface:
 
     def get_goals_per_team(self):
         query = """
+        SELECT PLAYERDISPLAYNAME, count(PLAYER) "Number of Goals"
+        FROM EXDEMO.CURRENT_GAME_VEGAS_GOALS_V
+        GROUP BY PLAYERDISPLAYNAME
+        """
+        return self.execute_query(query)
+
+    def get_possession_percentage(self):
+        query = """
+        SELECT GAMEINSTANCEID,
+               (PLAYER1_POSSESSION_PCT + PLAYER2_POSSESSION_PCT)*100 "Total Possession Pct",
+               PLAYER1_POSSESSION_PCT * 100 "Player1 Possession Pct",
+               PLAYER2_POSSESSION_PCT * 100 "Player2 Possession Pct"
+        FROM EXDEMO.OAC_CURRENT_GAME_STATS
+        """
+        return self.execute_query(query)
+
+    def get_possession_total(self):
+        query = """
+        SELECT GAMEINSTANCEID,
+               PLAYER1_MATCH_DURATION_SECONDS + PLAYER2_MATCH_DURATION_SECONDS "Possession total (in seconds)"
+        FROM EXDEMO.OAC_CURRENT_GAME_STATS
+        """
+        return self.execute_query(query)
+
+    def get_match_duration(self):
+        query = """
+        SELECT GAMEINSTANCEID,
+               match_duration_seconds "Match duration (in seconds)"
+        FROM EXDEMO.OAC_CURRENT_GAME_STATS
+        """
+        return self.execute_query(query)
+
+    def get_number_of_players(self):
+        query = """
+        SELECT GAMEINSTANCEID,
+               num_of_players
+        FROM EXDEMO.OAC_CURRENT_GAME_STATS
+        """
+        return self.execute_query(query)
+
+    def get_progressive_goals_per_team(self):
+        query = """
         SELECT
             TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
             PLAYERDISPLAYNAME,
@@ -64,7 +106,7 @@ class OracleDBInterface:
         """
         return self.execute_query(query)
 
-    def get_possession_percentage(self):
+    def get_progressive_possession_percentage(self):
         query = """
         SELECT
             TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
@@ -77,7 +119,7 @@ class OracleDBInterface:
         """
         return self.execute_query(query)
 
-    def get_possession_total(self):
+    def get_progressive_possession_total(self):
         query = """
         SELECT
             TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
@@ -92,7 +134,7 @@ class OracleDBInterface:
         """
         return self.execute_query(query)
 
-    def get_match_duration(self):
+    def get_progressive_match_duration(self):
         query = """
         SELECT
             TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
@@ -104,7 +146,7 @@ class OracleDBInterface:
         """
         return self.execute_query(query)
 
-    def get_number_of_players_and_games_played(self):
+    def get_progressive_number_of_players_and_games_played(self):
         query = """
         SELECT
             TRIM(GAMEDATATIMESTAMP) AS "GAMEDATATIMESTAMP",
@@ -128,6 +170,7 @@ def main():
     # Example: Get goals per team
     goals_per_team = db.get_goals_per_team()
     print("Goals per team:", goals_per_team)
+
     # Get possession percentage
     possession_percentage = db.get_possession_percentage()
     print("Possession percentage:", possession_percentage)
@@ -140,8 +183,9 @@ def main():
     match_duration = db.get_match_duration()
     print("Match duration:", match_duration)
 
-    # Get number of players and games played
-    number_of_players_and_games_played = db.get_number_of_players_and_games_played()
+
+    # Get number of players
+    number_of_players = db.get_number_of_players()
 
     #print(goals_per_team, possession_percentage, possession_total, match_duration, number_of_players_and_games_played)
 
@@ -152,12 +196,40 @@ def main():
         "possession_percentage": str(possession_percentage),
         "possession_total": str(possession_total),
         "match_duration": str(match_duration),
+        "number_of_players": str(number_of_players)
+    }
+
+
+    progressive_goals_per_team = db.get_progressive_goals_per_team()
+    print("Goals per team:", goals_per_team)
+
+    # Get possession percentage
+    progressive_possession_percentage = db.get_progressive_possession_percentage()
+    print("Possession percentage:", possession_percentage)
+
+    # Get possession total
+    progressive_possession_total = db.get_progressive_possession_total()
+    print("Possession total:", possession_total)
+
+    # Get match duration
+    progressive_match_duration = db.get_progressive_match_duration()
+    print("Match duration:", match_duration)
+
+
+    # Get number of players and games played
+    number_of_players_and_games_played = db.get_progressive_number_of_players_and_games_played()
+
+    progressive_data = {
+        "goals_per_team": str(progressive_goals_per_team),
+        "possession_percentage": str(progressive_possession_percentage),
+        "possession_total": str(progressive_possession_total),
+        "match_duration": str(progressive_match_duration),
         "number_of_players_and_games_played": str(number_of_players_and_games_played)
     }
 
     #print(data)
 
-    # Send GET request to localhost:3500
+    # Send GET request to localhost:3500/generate
     try:
         response = requests.get('http://localhost:3500/generate', params=data)
         response.raise_for_status()  # Raise an exception for bad status codes
