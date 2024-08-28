@@ -8,6 +8,7 @@ app = Flask(__name__)
 avatars = {
     'brendan': 'f05b2c94-6c0c-4d71-82e5-90fd51c7eea3',
     'brendan_v2': '209701e1-77a3-40d2-a383-1bd115f0ab0e',
+    'brendan_v3': 'b449c042-ab6c-421c-b09a-baeab47d5960',
 }
 
 url = "https://api.synthesia.io/v2/videos"
@@ -34,7 +35,7 @@ payload = {
                     "shortBackgroundContentMatchMode": "freeze",
                     "longBackgroundContentMatchMode": "trim"
                 } },
-            "avatar": avatars['brendan_v2'], # anna_costume1_cameraA
+            "avatar": avatars['brendan_v3'], # anna_costume1_cameraA
             "scriptText": "What is up ladies and gentleman from Oracle? This is a generation example using the test version of the API. Civility vicinity graceful is it at. Improve up at to on mention perhaps raising. Way building not get formerly her peculiar. Up uncommonly prosperous sentiments simplicity acceptance to so. Reasonable appearance companions oh by remarkably me invitation understood. Pursuit elderly ask perhaps all. Wise busy past both park when an ye no. Nay likely her length sooner thrown sex lively income. The expense windows adapted sir. Wrong widen drawn ample eat off doors money. Offending belonging promotion provision an be oh consulted ourselves it. Blessing welcomed ladyship she met humoured sir breeding her. Six curiosity day assurance bed necessary. ",
             "background": "green_screen"
         }
@@ -78,11 +79,36 @@ def handle_synthesia_request():
     ))
 
     if video_id:
-        verify_download(video_id)
+        download_url = verify_download(video_id)
+
+        # Prepare the data for the POST request
+        payload = {
+                "gameInstanceId": data['game_instance'],
+                "videoUrl": download_url
+            }
+
+            # Make the POST request
+        try:
+            response = requests.post(
+                "https://pqyhsfxkaun3blanrjmz5tqtri.apigateway.us-ashburn-1.oci.customer-oci.com/addons/v1/gamevidurl",
+                json=payload,
+                headers={"Content-Type": "application/json"}
+            )
+            response.raise_for_status()  # Raise an exception for bad status codes
+            print("Video URL sent successfully. Response:", response.text)
+        except requests.RequestException as e:
+            print("Error sending video URL:", e)
+        else:
+            print("No download URL available to send.")
+
+
+
 
         return jsonify({"message": "Script text updated successfully"}), 200
     else:
         return jsonify({"error": "Invalid data received"}), 400
+            
+
 
 
 
