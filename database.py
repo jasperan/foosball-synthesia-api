@@ -209,6 +209,8 @@ def main(game_instance_id, request_type):
 
         }
 
+        print(data)
+
     elif request_type == 'progressive':
         progressive_goals_per_team = db.get_progressive_goals_per_team()
         print("Goals per team:", progressive_goals_per_team)
