@@ -64,7 +64,7 @@ def generate():
                 data['number_of_players'])
     
 
-    if request_type == 'progressive':
+    elif request_type == 'progressive':
         
         construct_query = """
         You are a professional football commentator. You have been invited to host a foosball tournament with round-robin matches of 3 minutes in length, and you have been the main commentator of these games. There are two teams.
