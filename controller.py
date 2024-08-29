@@ -3,8 +3,6 @@ import database
 
 app = Flask(__name__)
 
-global progressive_requests
-
 progressive_requests = 0
 
 @app.route('/game_end', methods=['POST'])
