@@ -26,9 +26,10 @@ def generate():
     # Get parameters from the GET request
     data = request.args
 
-    data['game_instance']
-
     print(data)
+
+    game_instance_id = data['game_instance_id']
+    del data['game_instance_id']
 
 
     '''
@@ -78,6 +79,7 @@ def generate():
 
     response_data = {
         'text': data_dict['data'].chat_response.text,
+        'game_instance_id': game_instance_id,
     }
 
     # Post response_data to localhost:3500/synthesia
