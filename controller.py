@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 import database
 
-app = Flask(__name__)
-
 progressive_requests = 0
+
+app = Flask(__name__)
 
 @app.route('/game_end', methods=['POST'])
 def game_end():
