@@ -3,12 +3,12 @@ import database
 
 app = Flask(__name__)
 
-global progressive_requests
+progressive_requests = 0
 
 @app.route('/game_end', methods=['POST'])
 def game_end():
     try:
-        
+        global progressive_requests
         # Extract game_instance from the request data
         data = request.json
 
@@ -35,5 +35,4 @@ def game_end():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    progressive_requests = 0
     app.run(host='0.0.0.0', port=3502)
