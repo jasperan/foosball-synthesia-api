@@ -111,11 +111,6 @@ def handle_synthesia_request():
             
 
 
-
-
-
-
-
 #verify_download(video_id) - u can use this for testing if the download was OK.
 
 
