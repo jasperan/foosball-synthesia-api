@@ -3,9 +3,15 @@ import database
 
 app = Flask(__name__)
 
+global progressive_requests
+
+progressive_requests = 0
+
 @app.route('/game_end', methods=['POST'])
 def game_end():
     try:
+        progressive_requests += 1
+        
         # Extract game_instance from the request data
         data = request.json
 
@@ -18,7 +24,11 @@ def game_end():
             return jsonify({"error": "Invalid or missing game_instance"}), 400
         
         # Call the main function from database.py
-        database.main(game_instance)
+        database.main(game_instance, 'match') # always call with match type, only once every 4 times for progressive.
+
+        if progressive_requests > 3:
+            progressive_requests = 0
+            database.main(game_instance, 'progressive')
         
         return jsonify({"message": "Game end processed successfully"}), 200
     except Exception as e:

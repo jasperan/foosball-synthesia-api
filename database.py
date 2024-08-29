@@ -162,73 +162,80 @@ class OracleDBInterface:
 
 
 
-def main(game_instance_id):
+def main(game_instance_id, request_type):
     
     db = OracleDBInterface(db_username, db_password, db_dsn)
     db.connect()
 
-    # Example: Get goals per team
-    goals_per_team = db.get_goals_per_team()
-    print("Goals per team:", goals_per_team)
-
-    # Get possession percentage
-    possession_percentage = db.get_possession_percentage()
-    print("Possession percentage:", possession_percentage)
-
-    # Get possession total
-    possession_total = db.get_possession_total()
-    print("Possession total:", possession_total)
-
-    # Get match duration
-    match_duration = db.get_match_duration()
-    print("Match duration:", match_duration)
+    try:
+        assert request_type in ['match', 'progressive']
+    except AssertionError as e:
+        print('Invalid type of request_type in {}'.format(__name__))
 
 
-    # Get number of players
-    number_of_players = db.get_number_of_players()
+    if request_type == 'match':
+        # Example: Get goals per team
+        goals_per_team = db.get_goals_per_team()
+        print("Goals per team:", goals_per_team)
 
-    #print(goals_per_team, possession_percentage, possession_total, match_duration, number_of_players_and_games_played)
+        # Get possession percentage
+        possession_percentage = db.get_possession_percentage()
+        print("Possession percentage:", possession_percentage)
 
+        # Get possession total
+        possession_total = db.get_possession_total()
+        print("Possession total:", possession_total)
 
-    # Prepare the data to be sent
-    data = {
-        "goals_per_team": str(goals_per_team),
-        "possession_percentage": str(possession_percentage),
-        "possession_total": str(possession_total),
-        "match_duration": str(match_duration),
-        "number_of_players": str(number_of_players),
-        "game_instance_id": game_instance_id,
-    }
-
-
-    progressive_goals_per_team = db.get_progressive_goals_per_team()
-    print("Goals per team:", goals_per_team)
-
-    # Get possession percentage
-    progressive_possession_percentage = db.get_progressive_possession_percentage()
-    print("Possession percentage:", possession_percentage)
-
-    # Get possession total
-    progressive_possession_total = db.get_progressive_possession_total()
-    print("Possession total:", possession_total)
-
-    # Get match duration
-    progressive_match_duration = db.get_progressive_match_duration()
-    print("Match duration:", match_duration)
+        # Get match duration
+        match_duration = db.get_match_duration()
+        print("Match duration:", match_duration)
 
 
-    # Get number of players and games played
-    number_of_players_and_games_played = db.get_progressive_number_of_players_and_games_played()
+        # Get number of players
+        number_of_players = db.get_number_of_players()
 
-    progressive_data = {
-        "goals_per_team": str(progressive_goals_per_team),
-        "possession_percentage": str(progressive_possession_percentage),
-        "possession_total": str(progressive_possession_total),
-        "match_duration": str(progressive_match_duration),
-        "number_of_players_and_games_played": str(number_of_players_and_games_played)
-    }
+        #print(goals_per_team, possession_percentage, possession_total, match_duration, number_of_players_and_games_played)
 
-    #print(data)
+
+        # Prepare the data to be sent
+        data = {
+            "goals_per_team": str(goals_per_team),
+            "possession_percentage": str(possession_percentage),
+            "possession_total": str(possession_total),
+            "match_duration": str(match_duration),
+            "number_of_players": str(number_of_players),
+            "game_instance_id": game_instance_id,
+        }
+
+    elif request_type == 'progressive':
+        progressive_goals_per_team = db.get_progressive_goals_per_team()
+        print("Goals per team:", goals_per_team)
+
+        # Get possession percentage
+        progressive_possession_percentage = db.get_progressive_possession_percentage()
+        print("Possession percentage:", possession_percentage)
+
+        # Get possession total
+        progressive_possession_total = db.get_progressive_possession_total()
+        print("Possession total:", possession_total)
+
+        # Get match duration
+        progressive_match_duration = db.get_progressive_match_duration()
+        print("Match duration:", match_duration)
+
+
+        # Get number of players and games played
+        number_of_players_and_games_played = db.get_progressive_number_of_players_and_games_played()
+
+
+        data = {
+            "goals_per_team": str(progressive_goals_per_team),
+            "possession_percentage": str(progressive_possession_percentage),
+            "possession_total": str(progressive_possession_total),
+            "match_duration": str(progressive_match_duration),
+            "number_of_players_and_games_played": str(number_of_players_and_games_played),
+            "game_instance_id": game_instance_id,
+        }
 
     # Send GET request to localhost:3500/generate
     try:
