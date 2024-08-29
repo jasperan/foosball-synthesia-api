@@ -209,19 +209,19 @@ def main(game_instance_id, request_type):
 
     elif request_type == 'progressive':
         progressive_goals_per_team = db.get_progressive_goals_per_team()
-        print("Goals per team:", goals_per_team)
+        print("Goals per team:", progressive_goals_per_team)
 
         # Get possession percentage
         progressive_possession_percentage = db.get_progressive_possession_percentage()
-        print("Possession percentage:", possession_percentage)
+        print("Possession percentage:", progressive_possession_percentage)
 
         # Get possession total
         progressive_possession_total = db.get_progressive_possession_total()
-        print("Possession total:", possession_total)
+        print("Possession total:", progressive_possession_total)
 
         # Get match duration
         progressive_match_duration = db.get_progressive_match_duration()
-        print("Match duration:", match_duration)
+        print("Match duration:", progressive_match_duration)
 
 
         # Get number of players and games played
