@@ -99,10 +99,8 @@ def handle_synthesia_request():
             print("Video URL sent successfully. Response:", response.text)
         except requests.RequestException as e:
             print("Error sending video URL:", e)
-        else:
-            print("No download URL available to send.")
-
-
+        except Exception as e:
+            print("No download URL available to send: {}".format(e))
 
 
         return jsonify({"message": "Script text updated successfully"}), 200

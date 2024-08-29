@@ -52,10 +52,11 @@ def generate():
         
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration:
 
-        - {}
-        - {}
-        - {}
-        - {}
+
+        - Goals per team: {}
+        - Possession percentage, team 1 vs. team 2: {}
+        - Match duration: {} seconds
+        - Players and games played: {}
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
                 #data['possession_total'],
@@ -76,11 +77,11 @@ def generate():
         
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration:
 
-        - {}
-        - {}
-        - {}
-        - {}
-        - {}
+        - Goals per team: {}
+        - Possession percentage, team 1 vs. team 2: {}
+        - Possession total: {} seconds
+        - Match duration: {} seconds
+        - Players and games played: {}
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
                 data['possession_total'],
