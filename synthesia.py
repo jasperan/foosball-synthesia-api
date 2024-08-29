@@ -17,13 +17,28 @@ def handle_synthesia_request():
 
     url = "https://api.synthesia.io/v2/videos"
 
+    # Set up the headers
+    headers = {
+        "Authorization": yaml.safe_load(open('config.yaml'))['authorization'],
+        "accept": "application/json",
+        "content-type": "application/json"
+    }
+
+
+
+    data = request.json
+    if data and 'text' in data:
+        payload['input'][0]['scriptText'] = data['text'] # update script text
+        game_instance_id = data['game_instance_id'] 
+    
+
     # Define the data payload
     payload = {
-        "test": True,
+        "test": False,
         "visibility": "private",
         "aspectRatio": "16:9",
-        "title": "Default video title",
-        "description": "Default video description",
+        "title": "Game Instance ID #{}".format(game_instance_id),
+        "description": "Video for game instance ID #{}".format(game_instance_id),
         "soundtrack": "inspirational",
         "input": [
             {
@@ -38,26 +53,13 @@ def handle_synthesia_request():
                         "longBackgroundContentMatchMode": "trim"
                     } },
                 "avatar": avatars['brendan_v3'], # anna_costume1_cameraA
-                "scriptText": "What is up ladies and gentleman from Oracle? This is a generation example using the test version of the API. Civility vicinity graceful is it at. Improve up at to on mention perhaps raising. Way building not get formerly her peculiar. Up uncommonly prosperous sentiments simplicity acceptance to so. Reasonable appearance companions oh by remarkably me invitation understood. Pursuit elderly ask perhaps all. Wise busy past both park when an ye no. Nay likely her length sooner thrown sex lively income. The expense windows adapted sir. Wrong widen drawn ample eat off doors money. Offending belonging promotion provision an be oh consulted ourselves it. Blessing welcomed ladyship she met humoured sir breeding her. Six curiosity day assurance bed necessary. ",
+                "scriptText": data['game_instance_id'],
                 "background": "green_screen"
             }
         ]
     }
 
-    # Set up the headers
-    headers = {
-        "Authorization": yaml.safe_load(open('config.yaml'))['authorization'],
-        "accept": "application/json",
-        "content-type": "application/json"
-    }
 
-
-
-    data = request.json
-    if data and 'text' in data:
-        payload['input'][0]['scriptText'] = data['text'] # update script text
-        game_instance_id = data['game_instance_id']    
-    
     # Send the POST request
     response = requests.post(url, json=payload, headers=headers)
 
