@@ -246,6 +246,8 @@ def main(game_instance_id, request_type):
 
     db.disconnect()
 
+    return 1
+
 
 # Example usage
 if __name__ == "__main__":
