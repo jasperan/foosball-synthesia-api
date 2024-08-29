@@ -102,7 +102,7 @@ class OracleDBInterface:
         where GAMEEVENTTYPEID = 63
         and TRIM(GAMEDATATIMESTAMP) = (select max(trim(GAMEDATATIMESTAMP)) from  EXDEMO.CURRENT_GAME_VEGAS_GOALS_V)
         group by PLAYERDISPLAYNAME, TRIM(GAMEDATATIMESTAMP)
-        order by PLAYERDISPLAYNAME;
+        order by PLAYERDISPLAYNAME
         """
         return self.execute_query(query)
 
@@ -115,7 +115,7 @@ class OracleDBInterface:
         FROM
             EXDEMO.OAC_PROGRESSIVE_GAME_STATS
         GROUP BY TRIM(GAMEDATATIMESTAMP)
-        ORDER BY TRIM(GAMEDATATIMESTAMP);
+        ORDER BY TRIM(GAMEDATATIMESTAMP)
         """
         return self.execute_query(query)
 
@@ -130,7 +130,7 @@ class OracleDBInterface:
         FROM
             EXDEMO.OAC_PROGRESSIVE_GAME_STATS
         GROUP BY TRIM(GAMEDATATIMESTAMP)
-        ORDER BY TRIM(GAMEDATATIMESTAMP);
+        ORDER BY TRIM(GAMEDATATIMESTAMP)
         """
         return self.execute_query(query)
 
@@ -142,7 +142,7 @@ class OracleDBInterface:
         FROM
             EXDEMO.OAC_PROGRESSIVE_GAME_STATS
         GROUP BY TRIM(GAMEDATATIMESTAMP)
-        ORDER BY TRIM(GAMEDATATIMESTAMP);
+        ORDER BY TRIM(GAMEDATATIMESTAMP)
         """
         return self.execute_query(query)
 
@@ -155,7 +155,7 @@ class OracleDBInterface:
         FROM
             EXDEMO.OAC_PROGRESSIVE_GAME_STATS
         GROUP BY TRIM(GAMEDATATIMESTAMP)
-        ORDER BY TRIM(GAMEDATATIMESTAMP);
+        ORDER BY TRIM(GAMEDATATIMESTAMP)
         """
         return self.execute_query(query)
 
