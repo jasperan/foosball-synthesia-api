@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 import database
 
-progressive_requests = 0
-
 app = Flask(__name__)
+
+global progressive_requests
 
 @app.route('/game_end', methods=['POST'])
 def game_end():
@@ -35,4 +35,5 @@ def game_end():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
+    progressive_requests = 0
     app.run(host='0.0.0.0', port=3502)
