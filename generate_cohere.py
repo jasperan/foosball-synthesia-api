@@ -50,7 +50,7 @@ def generate():
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
-        Here are some statistics about the match these two teams just played. Use this information as basis for your narration:
+        Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
 
         - Goals per team: {}
@@ -75,7 +75,7 @@ def generate():
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
-        Here are some statistics about the match these two teams just played. Use this information as basis for your narration:
+        Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
         - Goals per team: {}
         - Possession percentage, team 1 vs. team 2: {}
