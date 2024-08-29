@@ -167,12 +167,6 @@ def main(game_instance_id, request_type):
     db = OracleDBInterface(db_username, db_password, db_dsn)
     db.connect()
 
-    try:
-        assert request_type in ['match', 'progressive']
-    except AssertionError as e:
-        print('Invalid type of request_type in {}'.format(__name__))
-
-
     if request_type == 'match':
         # Example: Get goals per team
         goals_per_team = db.get_goals_per_team()
