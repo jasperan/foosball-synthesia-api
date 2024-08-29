@@ -8,7 +8,6 @@ app = Flask(__name__)
 @app.route('/game_end', methods=['POST'])
 def game_end():
     try:
-        progressive_requests += 1
         
         # Extract game_instance from the request data
         data = request.json
@@ -28,6 +27,8 @@ def game_end():
             progressive_requests = 0
             database.main(game_instance, 'progressive')
         
+        progressive_requests += 1  
+      
         return jsonify({"message": "Game end processed successfully"}), 200
     except Exception as e:
         print(e)
