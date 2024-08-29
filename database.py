@@ -235,6 +235,7 @@ def main(game_instance_id, request_type):
             "match_duration": str(progressive_match_duration),
             "number_of_players_and_games_played": str(number_of_players_and_games_played),
             "game_instance_id": game_instance_id,
+            'request_type': request_type,
         }
 
     # Send GET request to localhost:3500/generate
