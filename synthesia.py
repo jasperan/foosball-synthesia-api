@@ -54,7 +54,6 @@ def handle_synthesia_request():
 
 
     data = request.json
-    global payload
     if data and 'text' in data:
         payload['input'][0]['scriptText'] = data['text'] # update script text
         game_instance_id = data['game_instance_id']    
