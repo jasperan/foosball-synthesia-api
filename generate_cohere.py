@@ -95,8 +95,10 @@ def generate():
 
     print(construct_query)
 
+    max_tokens = 80 if request_type == 'match' else 150
+
     chat_request.message = construct_query
-    chat_request.max_tokens = int(data.get('max_tokens', 300))
+    chat_request.max_tokens = int(data.get('max_tokens', max_tokens))
     chat_request.temperature = float(data.get('temperature', 1))
     chat_request.frequency_penalty = float(data.get('frequency_penalty', 0))
     chat_request.top_p = float(data.get('top_p', 0.75))
