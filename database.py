@@ -175,7 +175,7 @@ def main(game_instance_id, request_type):
         print("Goals per team:", goals_per_team)
 
         # Get possession percentage
-        possession_percentage = 'Team Hornets Possession: {}s vs. Team Panthers Possession: {}s'.format(db.get_possession_percentage()[0].get('Player1 Possession Pct'),
+        possession_percentage = 'Team Hornets Possession: {}% vs. Team Panthers Possession: {}%'.format(db.get_possession_percentage()[0].get('Player1 Possession Pct'),
             db.get_possession_percentage()[0].get('Player2 Possession Pct')
         )            
         print("Possession percentage:", possession_percentage)
