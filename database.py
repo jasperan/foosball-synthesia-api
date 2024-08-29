@@ -177,8 +177,8 @@ def main(game_instance_id, request_type):
         print("Possession percentage:", possession_percentage)
 
         # Get possession total
-        possession_total = db.get_possession_total()
-        print("Possession total:", possession_total)
+        #possession_total = db.get_possession_total()
+        #print("Possession total:", possession_total)
 
         # Get match duration
         match_duration = db.get_match_duration()
@@ -195,7 +195,7 @@ def main(game_instance_id, request_type):
         data = {
             "goals_per_team": str(goals_per_team),
             "possession_percentage": str(possession_percentage),
-            "possession_total": str(possession_total),
+            #"possession_total": str(possession_total),
             "match_duration": str(match_duration),
             "number_of_players": str(number_of_players),
             "game_instance_id": game_instance_id,

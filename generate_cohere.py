@@ -56,10 +56,9 @@ def generate():
         - {}
         - {}
         - {}
-        - {}
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
-                data['possession_total'],
+                #data['possession_total'],
                 data['match_duration'],
                 data['number_of_players'])
     
