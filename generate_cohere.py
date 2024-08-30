@@ -50,6 +50,8 @@ def generate():
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
+        In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
+
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
 
@@ -75,6 +77,8 @@ def generate():
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
+        In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
+      
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
         - Goals per team: {}
@@ -95,7 +99,7 @@ def generate():
 
     print(construct_query)
 
-    max_tokens = 80 if request_type == 'match' else 150
+    max_tokens = 80 if request_type == 'match' else 120
 
     chat_request.message = construct_query
     chat_request.max_tokens = int(data.get('max_tokens', max_tokens))

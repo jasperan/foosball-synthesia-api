@@ -170,13 +170,13 @@ def main(game_instance_id, request_type):
     if request_type == 'match':
         # Example: Get goals per team
         goals = db.get_goals_per_team()
-        goals_per_team = 'Team Hornets, {} vs. Team Panthers, {}'.format(goals[0].get('Number of Goals'),
+        goals_per_team = 'Team Hornets: {},  Team Panthers: {}'.format(goals[0].get('Number of Goals'),
             goals[1].get('Number of Goals'),
         )                                            
         print("Goals per team:", goals_per_team)
 
         # Get possession percentage
-        possession_percentage = 'Team Hornets: {}% vs. Team Panthers: {}%'.format(db.get_possession_percentage()[0].get('Player1 Possession Pct'),
+        possession_percentage = 'Team Hornets: {}%, Team Panthers: {}%'.format(db.get_possession_percentage()[0].get('Player1 Possession Pct'),
             db.get_possession_percentage()[0].get('Player2 Possession Pct')
         )            
         print("Possession percentage:", possession_percentage)
