@@ -77,7 +77,9 @@ def generate():
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
-      
+
+        Use less than 150 tokens in your response.
+
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
         - Goals per team: {}
@@ -140,7 +142,7 @@ def generate():
 
     response_data = {
         'text': json_result['inference_response']['generated_texts'][0]['text'],
-        'game_instance_id': 22,
+        'game_instance_id': game_instance_id,
     }
 
 
