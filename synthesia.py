@@ -53,7 +53,7 @@ def handle_synthesia_request():
                         "longBackgroundContentMatchMode": "trim"
                     } },
                 "avatar": avatars['brendan_v3'], # anna_costume1_cameraA
-                "scriptText": data['game_instance_id'],
+                "scriptText": data['text'],
                 "background": "green_screen"
             }
         ]
