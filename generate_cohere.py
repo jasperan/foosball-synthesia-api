@@ -16,7 +16,7 @@ config = oci.config.from_file('~/.oci/config', CONFIG_PROFILE)
 # Service endpoint
 endpoint = "https://inference.generativeai.us-chicago-1.oci.oraclecloud.com"
 
-generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
+generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,120))
 
 @app.route('/generate', methods=['GET'])
 def generate():
@@ -108,7 +108,7 @@ def generate():
     llm_inference_request.top_p = float(data.get('top_p', 0.75))
     llm_inference_request.top_k = int(data.get('top_k', 0))
 
-    generate_text_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyawk6mgunzodenakhkuwxanvt6wo3jcpf72ln52dymk4wq")
+    generate_text_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyafhwal37hxwylnpbcncidimbwteff4xha77n5xz4m7p6a")
     generate_text_detail.inference_request = llm_inference_request
     generate_text_detail.compartment_id = compartment_id
     chat_response = generative_ai_inference_client.generate_text(generate_text_detail)
@@ -136,3 +136,4 @@ if __name__ == '__main__':
 
 # llama3: ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyaycmwwnvu2gaqrffquofgmshlqzcdwpk727n4cykg34oa
 # cohere.command-r-plus: ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceya7ozidbukxwtun4ocm4ngco2jukoaht5mygpgr6gq2lgq
+# cohere.command for generation: ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyafhwal37hxwylnpbcncidimbwteff4xha77n5xz4m7p6a
