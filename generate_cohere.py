@@ -114,10 +114,13 @@ def generate():
     generate_text_detail.compartment_id = compartment_id
     generate_text_response = generative_ai_inference_client.generate_text(generate_text_detail)
     
-    data_dict = vars(generate_text_response)
+    print("**************************Generate Texts Result**************************")
+    
+    print(generate_text_response.data)
+    #data_dict = vars(generate_text_response)
 
     response_data = {
-        'text': data_dict['data'].chat_response.text,
+        'text': generate_text_response.data,
         'game_instance_id': game_instance_id,
     }
 
