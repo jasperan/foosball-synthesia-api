@@ -51,6 +51,8 @@ def generate():
         
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
 
+        Do NOT end your response with further questions to the user.
+
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
 
@@ -72,13 +74,13 @@ def generate():
 
         I need you to give me a report of the games that have already been played - you don't need to commentate a new game, but rather make a post-match analysis of what happened and how you think the matches have been so far in the tournament.
 
-        Use the past tense and up to 120 words maximum.
+        Use the past tense and up to 120 tokens maximum.
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
 
-        Use less than 150 tokens in your response.
+        Do NOT end your response with further questions to the user.
 
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
@@ -100,7 +102,7 @@ def generate():
 
     print(construct_query)
 
-    max_tokens = 150 if request_type == 'match' else 200
+    max_tokens = 110 if request_type == 'match' else 150
 
 
     generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
