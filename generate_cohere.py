@@ -10,18 +10,17 @@ with open('config.yaml', 'r') as file:
 
 compartment_id = config_data['compartment_id']
 CONFIG_PROFILE = config_data['config_profile']
-
 config = oci.config.from_file('~/.oci/config', CONFIG_PROFILE)
 
 # Service endpoint
 endpoint = "https://inference.generativeai.us-chicago-1.oci.oraclecloud.com"
 
 
-generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
 
 @app.route('/generate', methods=['GET'])
 def generate():
-
+    
+    generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
     generate_text_detail = oci.generative_ai_inference.models.GenerateTextDetails()
     llm_inference_request = oci.generative_ai_inference.models.CohereLlmInferenceRequest()
     # Get parameters from the GET request
