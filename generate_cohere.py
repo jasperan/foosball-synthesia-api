@@ -2,6 +2,8 @@ import oci
 import yaml
 from flask import Flask, request, jsonify
 import requests
+import json 
+
 
 app = Flask(__name__)
 
@@ -96,7 +98,7 @@ def generate():
 
     print(construct_query)
 
-    max_tokens = 80 if request_type == 'match' else 120
+    max_tokens = 120 if request_type == 'match' else 160
 
 
     generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
@@ -129,12 +131,18 @@ def generate():
     print("**************************Generate Texts Result**************************")
     
     print(generate_text_response.data)
-    #data_dict = vars(generate_text_response)
+    data_dict = vars(generate_text_response)
+
+    json_result = json.loads(str(data_dict['data']))
+    print(json_result['inference_response']['generated_texts'][0]['text']), type(json_result)
+
+        #data_dict = vars(generate_text_response)
 
     response_data = {
-        'text': generate_text_response.data,
-        'game_instance_id': game_instance_id,
+        'text': json_result['inference_response']['generated_texts'][0]['text'],
+        'game_instance_id': 22,
     }
+
 
     # Post response_data to localhost:3500/synthesia
     try:
