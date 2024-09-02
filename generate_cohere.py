@@ -20,8 +20,8 @@ generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferen
 
 @app.route('/generate', methods=['GET'])
 def generate():
-    chat_detail = oci.generative_ai_inference.models.ChatDetails()
-    chat_request = oci.generative_ai_inference.models.CohereChatRequest()
+    generate_text_detail = oci.generative_ai_inference.models.GenerateTextDetails()
+    llm_inference_request = oci.generative_ai_inference.models.CohereLlmInferenceRequest()
 
     # Get parameters from the GET request
     data = request.args.to_dict()
@@ -101,17 +101,17 @@ def generate():
 
     max_tokens = 80 if request_type == 'match' else 120
 
-    chat_request.message = construct_query
-    chat_request.max_tokens = int(data.get('max_tokens', max_tokens))
-    chat_request.temperature = float(data.get('temperature', 1))
-    chat_request.frequency_penalty = float(data.get('frequency_penalty', 0))
-    chat_request.top_p = float(data.get('top_p', 0.75))
-    chat_request.top_k = int(data.get('top_k', 0))
+    llm_inference_request.message = construct_query
+    llm_inference_request.max_tokens = int(data.get('max_tokens', max_tokens))
+    llm_inference_request.temperature = float(data.get('temperature', 1))
+    llm_inference_request.frequency_penalty = float(data.get('frequency_penalty', 0))
+    llm_inference_request.top_p = float(data.get('top_p', 0.75))
+    llm_inference_request.top_k = int(data.get('top_k', 0))
 
-    chat_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyawk6mgunzodenakhkuwxanvt6wo3jcpf72ln52dymk4wq")
-    chat_detail.chat_request = chat_request
-    chat_detail.compartment_id = compartment_id
-    chat_response = generative_ai_inference_client.chat(chat_detail)
+    generate_text_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyawk6mgunzodenakhkuwxanvt6wo3jcpf72ln52dymk4wq")
+    generate_text_detail.inference_request = llm_inference_request
+    generate_text_detail.compartment_id = compartment_id
+    chat_response = generative_ai_inference_client.generate_text(generate_text_detail)
     
     data_dict = vars(chat_response)
 
