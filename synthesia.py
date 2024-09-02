@@ -28,7 +28,6 @@ def handle_synthesia_request():
 
     data = request.json
     if data and 'text' in data:
-        payload['input'][0]['scriptText'] = data['text'] # update script text
         game_instance_id = data['game_instance_id'] 
     
 
@@ -53,7 +52,7 @@ def handle_synthesia_request():
                         "longBackgroundContentMatchMode": "trim"
                     } },
                 "avatar": avatars['brendan_v3'], # anna_costume1_cameraA
-                "scriptText": data['text'],
+                "scriptText": data['text'] if 'text' in data else '',  # update script text
                 "background": "green_screen"
             }
         ]
