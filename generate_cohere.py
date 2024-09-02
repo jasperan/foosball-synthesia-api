@@ -19,10 +19,7 @@ endpoint = "https://inference.generativeai.us-chicago-1.oci.oraclecloud.com"
 
 @app.route('/generate', methods=['GET'])
 def generate():
-    
-    generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
-    generate_text_detail = oci.generative_ai_inference.models.GenerateTextDetails()
-    llm_inference_request = oci.generative_ai_inference.models.CohereLlmInferenceRequest()
+
     # Get parameters from the GET request
     data = request.args.to_dict()
 
@@ -101,6 +98,22 @@ def generate():
 
     max_tokens = 80 if request_type == 'match' else 120
 
+
+    generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
+    generate_text_detail = oci.generative_ai_inference.models.GenerateTextDetails()
+    llm_inference_request = oci.generative_ai_inference.models.CohereLlmInferenceRequest()
+    llm_inference_request.prompt = construct_query
+    llm_inference_request.max_tokens = int(data.get('max_tokens', max_tokens))
+    llm_inference_request.temperature = float(data.get('temperature', 1))
+    llm_inference_request.frequency_penalty = float(data.get('frequency_penalty', 0))
+    llm_inference_request.top_p = float(data.get('top_p', 0.75))
+
+    generate_text_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyafhwal37hxwylnpbcncidimbwteff4xha77n5xz4m7p6a")
+    generate_text_detail.inference_request = llm_inference_request
+    generate_text_detail.compartment_id = compartment_id
+    generate_text_response = generative_ai_inference_client.generate_text(generate_text_detail)
+
+    '''
     llm_inference_request.prompt = construct_query
     llm_inference_request.max_tokens = int(data.get('max_tokens', max_tokens))
     llm_inference_request.temperature = float(data.get('temperature', 1))
@@ -112,7 +125,7 @@ def generate():
     generate_text_detail.inference_request = llm_inference_request
     generate_text_detail.compartment_id = compartment_id
     generate_text_response = generative_ai_inference_client.generate_text(generate_text_detail)
-    
+    '''
     print("**************************Generate Texts Result**************************")
     
     print(generate_text_response.data)
