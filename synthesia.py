@@ -84,9 +84,19 @@ def handle_synthesia_request():
     if video_id:
         download_url = verify_download(video_id)
 
+        # change profile to have scope to watch object storage bucket.
+        CONFIG_PROFILE = "foosball-bucket"
+        config = oci.config.from_file('~/.oci/config', CONFIG_PROFILE)
+        object_storage = oci.object_storage.ObjectStorageClient(config)
+
+        # Bucket details
+        namespace = object_storage.get_namespace().data
+        print('Bucket namespace: {}'.format(namespace))
+        bucket_name = "bucket-20240903-1708"
+
         # upload to object storage
         file_name = download_video(download_url, game_instance_id)
-        upload_to_bucket(file_name)
+        upload_to_bucket(file_name, bucket_name)
 
         download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
 
@@ -95,7 +105,6 @@ def handle_synthesia_request():
             "gameInstanceId": game_instance_id,
             "videoUrl": download_url
         }
-
 
         # Make the POST request
         try:
