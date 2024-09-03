@@ -2,6 +2,7 @@ import requests
 import yaml
 from verify_download import verify_download
 from flask import Flask, request, jsonify
+from video_to_bucket import download_video, upload_to_bucket
 
 app = Flask(__name__)
 
@@ -33,7 +34,7 @@ def handle_synthesia_request():
 
     # Define the data payload
     payload = {
-        "test": False,
+        "test": True,
         "visibility": "private",
         "aspectRatio": "16:9",
         "title": "Game Instance ID #{}".format(game_instance_id),
@@ -83,11 +84,18 @@ def handle_synthesia_request():
     if video_id:
         download_url = verify_download(video_id)
 
+        # upload to object storage
+        file_name = download_video(download_url, game_instance_id)
+        upload_to_bucket(file_name)
+
+        download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
+
         # Prepare the data for the POST request
         payload = {
             "gameInstanceId": game_instance_id,
             "videoUrl": download_url
         }
+
 
         # Make the POST request
         try:
