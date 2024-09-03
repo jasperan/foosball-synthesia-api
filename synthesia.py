@@ -3,6 +3,7 @@ import yaml
 from verify_download import verify_download
 from flask import Flask, request, jsonify
 from video_to_bucket import download_video, upload_to_bucket
+import oci 
 
 app = Flask(__name__)
 
