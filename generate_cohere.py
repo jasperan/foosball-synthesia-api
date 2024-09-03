@@ -45,13 +45,13 @@ def generate():
         construct_query = """
         You are a professional football commentator. You have been invited to host a foosball tournament with round-robin matches of 3 minutes in length. There are two teams. 
 
-        I need you to give me your best narration as if it were a live football match. Use the past tense and up to 80 words maximum.
+        I need you to give me your best narration as if it were a live football match. Use the past tense.
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
 
-        Do NOT end your response with further questions to the user.
+        Do NOT end your response with further questions to the user and do not finish your generations mid-sentence.
 
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
@@ -74,13 +74,13 @@ def generate():
 
         I need you to give me a report of the games that have already been played - you don't need to commentate a new game, but rather make a post-match analysis of what happened and how you think the matches have been so far in the tournament.
 
-        Use the past tense and up to 120 tokens maximum.
+        Use the past tense.
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
 
-        Do NOT end your response with further questions to the user.
+        Do NOT end your response with further questions to the user and do not finish your generations mid-sentence.
 
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
