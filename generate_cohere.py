@@ -43,13 +43,11 @@ def generate():
     if request_type == 'match':
 
         construct_query = """
-        You are a professional football commentator. You have been invited to host a foosball tournament with round-robin matches of 3 minutes in length. There are two teams. 
-
-        I need you to give me your best narration as if it were a live football match. Use the past tense.
+        You are a professional football commentator. You have been invited to host a foosball tournament with matches of 3 minutes in length. There are two teams. I need you to give me your best narration as if it were a live football match. Use the past tense.
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
-        Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
+        Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers:
 
 
         - Goals per team: {}
@@ -70,10 +68,10 @@ def generate():
         
         construct_query = """
         You are a professional football commentator. You have been invited to host a foosball tournament with round-robin matches of 3 minutes in length, and you have been the main commentator of these games. There are two teams.
-
+         
         I need you to give me a report of the games that have already been played - you don't need to commentate a new game, but rather make a post-match analysis of what happened and how you think the matches have been so far in the tournament.
 
-        Use the past tense.
+        Use the past tense. Use 150 words or less.
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
 
@@ -101,7 +99,7 @@ def generate():
 
     print(construct_query)
 
-    max_tokens = 160 if request_type == 'match' else 200
+    max_tokens = 200 if request_type == 'match' else 250
 
 
     generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
