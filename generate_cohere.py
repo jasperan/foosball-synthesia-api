@@ -49,17 +49,18 @@ def generate():
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
         
-        In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
-
-        Do NOT end your response with further questions to the user and do not finish your generations mid-sentence.
-
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
 
         - Goals per team: {}
         - Possession percentage: {}
         - Match duration: {} seconds
-        - Players and games played: {}
+        - Number of players: {}
+
+        In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
+
+        Do NOT end your response with further questions to the user and do not finish your generations mid-sentence.
+
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
                 #data['possession_total'],
@@ -77,10 +78,6 @@ def generate():
         Use the past tense.
         
         Team 1, Hornets (Yellow shirts [appears as "red" in the database]) vs Team 2: Panthers (Black shirts [appears as "blue" in the database])
-        
-        In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
-
-        Do NOT end your response with further questions to the user and do not finish your generations mid-sentence.
 
         Here are some statistics about the match these two teams just played. Use this information as basis for your narration, and be specific about the numbers when mentioning statistics:
 
@@ -88,12 +85,18 @@ def generate():
         - Possession percentage: {}
         - Possession total: {} seconds
         - Match duration: {} seconds
-        - Players and games played: {}
+        - Number of players: {}
+
+        In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
+
+        Do NOT end your response with further questions to the user, and do not finish your generations mid-sentence.
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
                 data['possession_total'],
                 data['match_duration'],
                 data['number_of_players_and_games_played'])
+        
+        
 
     else:
         print('Invalid request type! Valid values are [match, progressive]')
@@ -102,7 +105,7 @@ def generate():
 
     print(construct_query)
 
-    max_tokens = 110 if request_type == 'match' else 150
+    max_tokens = 160 if request_type == 'match' else 200
 
 
     generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
