@@ -148,12 +148,12 @@ def generate():
     print(data_dict)
 
     json_result = json.loads(str(data_dict['data']))
-    print(json_result['inference_response']['generated_texts'][0]['text']), type(json_result)
+    print(json_result['chat_response']['choices'][0]['message']['content'][0]['text']), type(json_result)
 
         #data_dict = vars(generate_text_response)
 
     response_data = {
-        'text': json_result['inference_response']['generated_texts'][0]['text'],
+        'text': json_result['chat_response']['choices'][0]['message']['content'][0]['text'],
         'game_instance_id': game_instance_id,
     }
 
