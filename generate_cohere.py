@@ -56,6 +56,8 @@ def generate():
         - Number of players: {}
 
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
+        
+        After talking about the stats, stop generating more text.
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
                 #data['possession_total'],
@@ -84,6 +86,8 @@ def generate():
         - Number of players: {}
 
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
+        
+        After talking about the stats, stop generating more text.
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
                 data['possession_total'],
