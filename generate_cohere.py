@@ -58,15 +58,13 @@ def generate():
         - Number of players: {}
 
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
-
-        Do NOT end your response with further questions to the user and do not finish your generations mid-sentence.
-
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
                 #data['possession_total'],
                 data['match_duration'],
                 data['number_of_players'])
-    
+    #   Do NOT end your response with further questions to the user and do not finish your generations mid-sentence.
+
 
     elif request_type == 'progressive':
         
@@ -88,8 +86,6 @@ def generate():
         - Number of players: {}
 
         In your result, reduce the risk of sounding like a war, i.e. prevent the use of words like battle, war, attack, fight, destroyed, killed, sniper, bullet, weapon, etc.
-
-        Do NOT end your response with further questions to the user, and do not finish your generations mid-sentence.
         """.format(data['goals_per_team'],
                 data['possession_percentage'],
                 data['possession_total'],
