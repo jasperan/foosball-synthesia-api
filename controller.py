@@ -25,9 +25,9 @@ def game_end():
         # Call the main function from database.py
         database.main(game_instance, 'match') # always call with match type, only once every 4 times for progressive.
 
-        if progressive_requests > 3:
-            progressive_requests = 0
-            database.main(game_instance, 'progressive')
+        #if progressive_requests > 3:
+        #    progressive_requests = 0
+        #    database.main(game_instance, 'progressive')
         
         progressive_requests += 1  
       
