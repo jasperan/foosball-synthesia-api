@@ -99,8 +99,9 @@ def handle_synthesia_request():
         file_name = download_video(download_url, game_instance_id)
         upload_to_bucket(file_name, bucket_name, object_storage, namespace)
 
-        download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
-
+        #download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
+        download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/C_sDf07MbKJfwEdx4sPeMUmMrizRHX71n3tL-awdZsFsofIxinwM0rBZMpBXrGUV/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
+        
         # Prepare the data for the POST request
         payload = {
             "gameInstanceId": game_instance_id,
