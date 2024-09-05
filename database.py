@@ -52,7 +52,7 @@ class OracleDBInterface:
 
     def get_goals_per_team(self):
         query = """
-        SELECT PLAYERDISPLAYNAME, count(PLAYER) "Number of Goals"
+        SELECT PLAYERDISPLAYNAME, count(PLAYER) "goals"
         FROM EXDEMO.CURRENT_GAME_VEGAS_GOALS_V
         GROUP BY PLAYERDISPLAYNAME
         """
@@ -62,8 +62,8 @@ class OracleDBInterface:
         query = """
         SELECT GAMEINSTANCEID,
                (PLAYER1_POSSESSION_PCT + PLAYER2_POSSESSION_PCT)*100 "Total Possession Pct",
-               PLAYER1_POSSESSION_PCT * 100 "Player1 Possession Pct",
-               PLAYER2_POSSESSION_PCT * 100 "Player2 Possession Pct"
+               PLAYER1_POSSESSION_PCT * 100 "hornets",
+               PLAYER2_POSSESSION_PCT * 100 "panthers"
         FROM EXDEMO.OAC_CURRENT_GAME_STATS
         """
         return self.execute_query(query)
@@ -71,7 +71,7 @@ class OracleDBInterface:
     def get_possession_total(self):
         query = """
         SELECT GAMEINSTANCEID,
-               PLAYER1_MATCH_DURATION_SECONDS + PLAYER2_MATCH_DURATION_SECONDS "Possession total (in seconds)"
+               PLAYER1_MATCH_DURATION_SECONDS + PLAYER2_MATCH_DURATION_SECONDS "possession_total"
         FROM EXDEMO.OAC_CURRENT_GAME_STATS
         """
         return self.execute_query(query)
@@ -79,7 +79,7 @@ class OracleDBInterface:
     def get_match_duration(self):
         query = """
         SELECT GAMEINSTANCEID,
-               match_duration_seconds "Match duration (in seconds)"
+               match_duration_seconds "match_duration"
         FROM EXDEMO.OAC_CURRENT_GAME_STATS
         """
         return self.execute_query(query)
@@ -169,12 +169,21 @@ def main(game_instance_id, request_type):
 
     if request_type == 'match':
         # Example: Get goals per team
+        (goals_per_team, possession_percentage, match_duration, number_of_players) = (str(), str(), str(), str())
         try:
             goals = db.get_goals_per_team()
             print("Goals per team:", goals)
-            goals_per_team = 'Team Hornets: {},  Team Panthers: {}'.format(goals[0].get('Number of Goals'),
-                goals[1].get('Number of Goals'),
-            )                                            
+
+            if len(goals) > 1:
+                goals_per_team = 'Team Hornets: {},  Team Panthers: {}'.format(goals[0].get('goals'),
+                    goals[1].get('goals'),
+                )
+            elif len(goals) == 1 and goals[0].get('PLAYERDISPLAYNAME') == 'Blue':
+                goals_per_team = 'Team Hornets: 0,  Team Panthers: {}'.format(goals[0].get('goals'),
+                )
+            elif len(goals) == 1 and goals[0].get('PLAYERDISPLAYNAME') == 'Red':
+                goals_per_team = 'Team Hornets: {},  Team Panthers: 0'.format(goals[0].get('goals'),
+                )                                    
         except Exception as e:
             print("Exception in get_goals_per_team:", str(e))
 
@@ -182,8 +191,8 @@ def main(game_instance_id, request_type):
             possession_percentage = db.get_possession_percentage()
             print(possession_percentage)
             # Get possession percentage
-            possession_percentage = 'Team Hornets: {} percent, Team Panthers: {} percent'.format(possession_percentage[0].get('Player1 Possession Pct'),
-                possession_percentage()[0].get('Player2 Possession Pct')
+            possession_percentage = 'Team Hornets: {} percent, Team Panthers: {} percent'.format(possession_percentage[0].get('hornets'),
+                possession_percentage()[0].get('panthers')
             )            
             print("Possession percentage:", possession_percentage)
         except Exception as e:
@@ -197,7 +206,7 @@ def main(game_instance_id, request_type):
             # Get match duration
             match_duration = db.get_match_duration()
             print(match_duration)
-            match_duration = match_duration[0].get('Match duration (in seconds)')
+            match_duration = match_duration[0].get('match_duration')
             print("Match duration:", match_duration)
         except Exception as e:
             print("Exception in get_match_duration:", str(e))
