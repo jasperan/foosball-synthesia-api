@@ -40,7 +40,7 @@ def download_video(url, game_instance_id):
 def upload_to_bucket(object_name, bucket_name, object_storage, namespace):
     with open(object_name, 'rb') as f:
         try:
-            object_storage.put_object(namespace, bucket_name, "game_{}".format(object_name), f)
+            object_storage.put_object(namespace, bucket_name, "game_{}".format(object_name), f, content_type='video/mp4')
         except oci.exceptions.ServiceError as e:
             print(f"OCI Service Error occurred: {e}")
             raise
