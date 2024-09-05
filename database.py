@@ -169,31 +169,40 @@ def main(game_instance_id, request_type):
 
     if request_type == 'match':
         # Example: Get goals per team
-        goals = db.get_goals_per_team()
+        try:
+            goals = db.get_goals_per_team()
+            goals_per_team = 'Team Hornets: {},  Team Panthers: {}'.format(goals[0].get('Number of Goals'),
+                goals[1].get('Number of Goals'),
+            )                                            
+            print("Goals per team:", goals_per_team)
+        except Exception as e:
+            print("Exception in get_goals_per_team:", str(e))
 
-        print(goals)
-        goals_per_team = 'Team Hornets: {},  Team Panthers: {}'.format(goals[0].get('Number of Goals'),
-            goals[1].get('Number of Goals'),
-        )                                            
-        print("Goals per team:", goals_per_team)
-
-        # Get possession percentage
-        possession_percentage = 'Team Hornets: {} percent, Team Panthers: {} percent'.format(db.get_possession_percentage()[0].get('Player1 Possession Pct'),
-            db.get_possession_percentage()[0].get('Player2 Possession Pct')
-        )            
-        print("Possession percentage:", possession_percentage)
+        try:
+            # Get possession percentage
+            possession_percentage = 'Team Hornets: {} percent, Team Panthers: {} percent'.format(db.get_possession_percentage()[0].get('Player1 Possession Pct'),
+                db.get_possession_percentage()[0].get('Player2 Possession Pct')
+            )            
+            print("Possession percentage:", possession_percentage)
+        except Exception as e:
+            print("Exception in get_possession_percentage:", str(e))
 
         # Get possession total
         #possession_total = db.get_possession_total()
         #print("Possession total:", possession_total)
 
-        # Get match duration
-        match_duration = db.get_match_duration()[0].get('Match duration (in seconds)')
-        print("Match duration:", match_duration)
+        try:
+            # Get match duration
+            match_duration = db.get_match_duration()[0].get('Match duration (in seconds)')
+            print("Match duration:", match_duration)
+        except Exception as e:
+            print("Exception in get_match_duration:", str(e))
 
-
-        # Get number of players
-        number_of_players = db.get_number_of_players()[0]['NUM_OF_PLAYERS']
+        try:
+            # Get number of players
+            number_of_players = db.get_number_of_players()[0]['NUM_OF_PLAYERS']
+        except Exception as e:
+            print("Exception in get_number_of_players:", str(e))
 
         #print(goals_per_team, possession_percentage, possession_total, match_duration, number_of_players_and_games_played)
 
