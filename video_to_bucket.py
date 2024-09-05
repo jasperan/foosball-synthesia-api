@@ -48,7 +48,7 @@ def upload_to_bucket(object_name, bucket_name, object_storage, namespace):
             print(f"Unexpected error occurred while uploading object: {e}")
             raise
 
-def create_par(object_name, bucket_name, object_storage):
+def create_par(object_name, bucket_name, object_storage, namespace):
     # Creating a Pre-Authenticated Request
     par_ttl = (datetime.utcnow() + timedelta(hours=24*30)).replace(tzinfo=pytz.UTC)
 
