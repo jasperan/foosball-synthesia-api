@@ -103,22 +103,30 @@ def generate():
 
     print(construct_query)
 
-    max_tokens = 200 if request_type == 'match' else 250
+    max_tokens = 600 if request_type == 'match' else 750
 
 
     generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
-    generate_text_detail = oci.generative_ai_inference.models.GenerateTextDetails()
-    llm_inference_request = oci.generative_ai_inference.models.CohereLlmInferenceRequest()
-    llm_inference_request.prompt = construct_query
+    chat_detail = oci.generative_ai_inference.models.ChatDetails()
+
+    message = oci.generative_ai_inference.models.Message()
+    message.role = "USER"
+    message.content = [construct_query]
+
+    llm_inference_request = oci.generative_ai_inference.models.GenericChatRequest()
+    llm_inference_request.api_format = oci.generative_ai_inference.models.BaseChatRequest.API_FORMAT_GENERIC
+    llm_inference_request.messages = [message]
+
     llm_inference_request.max_tokens = int(data.get('max_tokens', max_tokens))
     llm_inference_request.temperature = float(data.get('temperature', 1))
     llm_inference_request.frequency_penalty = float(data.get('frequency_penalty', 0))
     llm_inference_request.top_p = float(data.get('top_p', 0.75))
 
-    generate_text_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyafhwal37hxwylnpbcncidimbwteff4xha77n5xz4m7p6a")
-    generate_text_detail.inference_request = llm_inference_request
-    generate_text_detail.compartment_id = compartment_id
-    generate_text_response = generative_ai_inference_client.generate_text(generate_text_detail)
+    chat_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyaycmwwnvu2gaqrffquofgmshlqzcdwpk727n4cykg34oa")
+    
+    chat_detail.inference_request = llm_inference_request
+    chat_detail.compartment_id = compartment_id
+    chat_response  = generative_ai_inference_client.generate_text(chat_detail)
 
     '''
     llm_inference_request.prompt = construct_query
@@ -128,15 +136,15 @@ def generate():
     llm_inference_request.top_p = float(data.get('top_p', 0.75))
     llm_inference_request.top_k = int(data.get('top_k', 0))
 
-    generate_text_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyafhwal37hxwylnpbcncidimbwteff4xha77n5xz4m7p6a")
+    generate_text_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyaycmwwnvu2gaqrffquofgmshlqzcdwpk727n4cykg34oa")
     generate_text_detail.inference_request = llm_inference_request
     generate_text_detail.compartment_id = compartment_id
     generate_text_response = generative_ai_inference_client.generate_text(generate_text_detail)
     '''
     print("**************************Generate Texts Result**************************")
     
-    print(generate_text_response.data)
-    data_dict = vars(generate_text_response)
+    data_dict = vars(chat_response)
+    print(data_dict)
 
     json_result = json.loads(str(data_dict['data']))
     print(json_result['inference_response']['generated_texts'][0]['text']), type(json_result)
@@ -163,6 +171,8 @@ def generate():
 if __name__ == '__main__':
     app.run(port=3500)
 
-# llama3: ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyaycmwwnvu2gaqrffquofgmshlqzcdwpk727n4cykg34oa
 # cohere.command-r-plus: ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceya7ozidbukxwtun4ocm4ngco2jukoaht5mygpgr6gq2lgq
 # cohere.command for generation: ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyafhwal37hxwylnpbcncidimbwteff4xha77n5xz4m7p6a
+
+
+# new model - llama3: ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyaycmwwnvu2gaqrffquofgmshlqzcdwpk727n4cykg34oa
