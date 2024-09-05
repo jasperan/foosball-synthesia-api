@@ -110,7 +110,7 @@ def generate():
     chat_detail = oci.generative_ai_inference.models.ChatDetails()
 
     content = oci.generative_ai_inference.models.TextContent()
-    content.text = [construct_query]
+    content.text = construct_query
     message = oci.generative_ai_inference.models.Message()
     message.role = "USER"
     message.content = [content]
