@@ -109,9 +109,11 @@ def generate():
     generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
     chat_detail = oci.generative_ai_inference.models.ChatDetails()
 
+    content = oci.generative_ai_inference.models.TextContent()
+    content.text = [construct_query]
     message = oci.generative_ai_inference.models.Message()
     message.role = "USER"
-    message.content = [construct_query]
+    message.content = [content]
 
     llm_inference_request = oci.generative_ai_inference.models.GenericChatRequest()
     llm_inference_request.api_format = oci.generative_ai_inference.models.BaseChatRequest.API_FORMAT_GENERIC
