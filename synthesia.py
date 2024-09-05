@@ -104,7 +104,8 @@ def handle_synthesia_request():
         par_url = create_par(file_name, bucket_name, object_storage, namespace)
 
         #download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
-        download_url = par_url
+        download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/bPIyEDivnNdlrVYodBSSe9SfBJaWiKm8aARHXqmj1cpJOx8-PwsgKsGPjxdruyLv/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
+        #download_url = par_url
         
         # Prepare the data for the POST request
         payload = {

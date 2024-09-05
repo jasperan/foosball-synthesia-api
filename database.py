@@ -175,11 +175,11 @@ def main(game_instance_id, request_type):
             print("Goals per team:", goals)
 
             if len(goals) > 1:
-                goals_per_team = 'Team {}: {},  Team {}: {}'.format(goals[0].get('PLAYERDISPLAYNAME'), goals[0].get('goals'),
+                goals_per_team = 'Team {}: {}, Team {}: {}'.format(goals[0].get('PLAYERDISPLAYNAME'), goals[0].get('goals'),
                     goals[1].get('PLAYERDISPLAYNAME'), goals[1].get('goals'),
                 )
             elif len(goals) == 1: # if only one team scored.
-                goals_per_team = 'Team {}: {},  rival team: 0'.format(goals[0].get('PLAYERDISPLAYNAME'), goals[0].get('goals')
+                goals_per_team = 'Team {}: {}, rival team: 0'.format(goals[0].get('PLAYERDISPLAYNAME'), goals[0].get('goals')
                 )                                 
         except Exception as e:
             print("Exception in get_goals_per_team:", str(e))
