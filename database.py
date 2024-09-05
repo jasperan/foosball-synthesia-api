@@ -179,6 +179,7 @@ def main(game_instance_id, request_type):
             print("Exception in get_goals_per_team:", str(e))
 
         try:
+            print(db.get_possession_percentage())
             # Get possession percentage
             possession_percentage = 'Team Hornets: {} percent, Team Panthers: {} percent'.format(db.get_possession_percentage()#[0].get('Player1 Possession Pct'),
                 db.get_possession_percentage()#[0].get('Player2 Possession Pct')
@@ -193,6 +194,7 @@ def main(game_instance_id, request_type):
 
         try:
             # Get match duration
+            print(db.get_match_duration())
             match_duration = db.get_match_duration()#[0].get('Match duration (in seconds)')
             print("Match duration:", match_duration)
         except Exception as e:
@@ -200,6 +202,7 @@ def main(game_instance_id, request_type):
 
         try:
             # Get number of players
+            print(db.get_number_of_players())
             number_of_players = db.get_number_of_players()#[0]['NUM_OF_PLAYERS']
         except Exception as e:
             print("Exception in get_number_of_players:", str(e))
