@@ -170,6 +170,8 @@ def main(game_instance_id, request_type):
     if request_type == 'match':
         # Example: Get goals per team
         goals = db.get_goals_per_team()
+
+        print(goals)
         goals_per_team = 'Team Hornets: {},  Team Panthers: {}'.format(goals[0].get('Number of Goals'),
             goals[1].get('Number of Goals'),
         )                                            
