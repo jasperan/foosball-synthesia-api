@@ -2,8 +2,11 @@ import requests
 import yaml
 from verify_download import verify_download
 from flask import Flask, request, jsonify
-from video_to_bucket import download_video, upload_to_bucket
+from video_to_bucket import download_video, upload_to_bucket, create_par
 import oci 
+import pytz 
+from oci.object_storage.models import CreatePreauthenticatedRequestDetails
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -98,9 +101,10 @@ def handle_synthesia_request():
         # upload to object storage
         file_name = download_video(download_url, game_instance_id)
         upload_to_bucket(file_name, bucket_name, object_storage, namespace)
+        par_url = create_par(file_name, bucket_name, object_storage)
 
         #download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
-        download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/C_sDf07MbKJfwEdx4sPeMUmMrizRHX71n3tL-awdZsFsofIxinwM0rBZMpBXrGUV/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
+        download_url = par_url
         
         # Prepare the data for the POST request
         payload = {
