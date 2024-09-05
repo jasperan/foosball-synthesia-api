@@ -126,7 +126,7 @@ def generate():
     
     chat_detail.inference_request = llm_inference_request
     chat_detail.compartment_id = compartment_id
-    chat_response  = generative_ai_inference_client.generate_text(chat_detail)
+    chat_response  = generative_ai_inference_client.chat(chat_detail)
 
     '''
     llm_inference_request.prompt = construct_query
