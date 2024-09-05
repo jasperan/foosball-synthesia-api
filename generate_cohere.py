@@ -123,8 +123,7 @@ def generate():
     llm_inference_request.top_p = float(data.get('top_p', 0.75))
 
     chat_detail.serving_mode = oci.generative_ai_inference.models.OnDemandServingMode(model_id="ocid1.generativeaimodel.oc1.us-chicago-1.amaaaaaask7dceyaycmwwnvu2gaqrffquofgmshlqzcdwpk727n4cykg34oa")
-    
-    chat_detail.inference_request = llm_inference_request
+    chat_detail.chat_request = llm_inference_request
     chat_detail.compartment_id = compartment_id
     chat_response  = generative_ai_inference_client.chat(chat_detail)
 
