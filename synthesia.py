@@ -100,7 +100,6 @@ def handle_synthesia_request():
 
         # upload to object storage
         file_name = download_video(download_url, game_instance_id)
-        file_name = "game_{}".format(file_name)
         upload_to_bucket(file_name, bucket_name, object_storage, namespace)
         #par_url = create_par(file_name, bucket_name, object_storage, namespace)
 
