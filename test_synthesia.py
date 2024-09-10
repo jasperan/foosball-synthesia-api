@@ -25,7 +25,7 @@ game_instance_id = 22
 
 # Define the data payload
 payload = {
-    "test": True,
+    "test": False,
     "visibility": "private",
     "aspectRatio": "16:9",
     "title": "Game Instance ID #{}".format(game_instance_id),
