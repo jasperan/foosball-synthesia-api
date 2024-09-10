@@ -103,7 +103,7 @@ def generate():
 
     print(construct_query)
 
-    max_tokens = 480 if request_type == 'match' else 580
+    max_tokens = 450 if request_type == 'match' else 550
 
 
     generative_ai_inference_client = oci.generative_ai_inference.GenerativeAiInferenceClient(config=config, service_endpoint=endpoint, retry_strategy=oci.retry.NoneRetryStrategy(), timeout=(10,240))
