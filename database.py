@@ -186,10 +186,10 @@ def main(game_instance_id, request_type):
 
         try:
             possession_percentage = db.get_possession_percentage()
-            print(possession_percentage)
+            print(possession_percentage, type(possession_percentage))
             # Get possession percentage
-            possession_percentage = 'Team 1: {} percent, Team 2: {} percent'.format(possession_percentage[0].get('team1'),
-                possession_percentage[0].get('team2')
+            possession_percentage = 'Team 1: {} percent, Team 2: {} percent'.format(possession_percentage.get('team1'),
+                possession_percentage.get('team2')
             )            
             print("Possession percentage:", possession_percentage)
         except Exception as e:
