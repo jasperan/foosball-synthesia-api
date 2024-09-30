@@ -105,7 +105,8 @@ def handle_synthesia_request():
 
         #download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/n/axytmnxp84kg/b/bucket-20240903-1708/o/{}.mp4".format(game_instance_id)
         #download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/bPIyEDivnNdlrVYodBSSe9SfBJaWiKm8aARHXqmj1cpJOx8-PwsgKsGPjxdruyLv/n/axytmnxp84kg/b/bucket-20240903-1708/o/game_{}.mp4".format(game_instance_id)
-        download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/yj18NeoRqCHh4AHMU7V8kWod217QkhabaUbSciUpZVH557xeNgLKvISP5HFLyVae/n/axytmnxp84kg/b/bucket-20240903-1708/o/game_{}.mp4".format(game_instance_id)
+        #download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/yj18NeoRqCHh4AHMU7V8kWod217QkhabaUbSciUpZVH557xeNgLKvISP5HFLyVae/n/axytmnxp84kg/b/bucket-20240903-1708/o/game_{}.mp4".format(game_instance_id)
+        download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/haqh0RC6hCP-A_ot4B10ZqWy1Dc9gfiTCtebbhJUaBqhbIqW_r0YKZ3M_4jLvAl0/n/axytmnxp84kg/b/bucket-20240903-1708/o/game_{}.mp4".format(game_instance_id)
         #download_url = "https://objectstorage.us-ashburn-1.oraclecloud.com/p/C_sDf07MbKJfwEdx4sPeMUmMrizRHX71n3tL-awdZsFsofIxinwM0rBZMpBXrGUV/n/axytmnxp84kg/b/bucket-20240903-1708/o/game_{}.mp4".format(game_instance_id)
         #download_url = par_url
         
