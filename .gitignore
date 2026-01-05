@@ -34,3 +34,7 @@ Temporary Items
 
 # ignore config file containing synthesia api
 config.yaml
+# Generated generated files
+*.mp4
+__pycache__/
+old.config.yaml
